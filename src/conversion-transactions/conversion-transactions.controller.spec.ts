@@ -11,7 +11,9 @@ describe('ConversionTransactionsController', () => {
       providers: [ConversionTransactionsService],
     }).compile();
 
-    controller = module.get<ConversionTransactionsController>(ConversionTransactionsController);
+    controller = module.get<ConversionTransactionsController>(
+      ConversionTransactionsController,
+    );
   });
 
   it('should be defined', () => {

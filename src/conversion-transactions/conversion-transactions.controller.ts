@@ -1,4 +1,5 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ConversionTransactionsService } from './conversion-transactions.service';
 import { CreateConversionTransactionDto } from './dto/create-conversion-transaction.dto';
 
@@ -8,6 +9,7 @@ export class ConversionTransactionsController {
     private readonly conversionTransactionsService: ConversionTransactionsService,
   ) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(
     @Body() createConversionTransactionDto: CreateConversionTransactionDto,
@@ -17,11 +19,13 @@ export class ConversionTransactionsController {
     );
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.conversionTransactionsService.findAll();
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.conversionTransactionsService.findOne(+id);

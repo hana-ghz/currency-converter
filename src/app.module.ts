@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { Users } from './users/users.entity';
 import { ConversionTransactionsModule } from './conversion-transactions/conversion-transactions.module';
 import { ConversionTransactions } from './conversion-transactions/conversion-transaction.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { ConversionTransactions } from './conversion-transactions/conversion-tra
     }),
     UsersModule,
     ConversionTransactionsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
