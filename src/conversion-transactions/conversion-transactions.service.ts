@@ -1,26 +1,31 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { ConversionTransactions } from 'src/conversion-transactions/conversion-transaction.entity';
 import { CreateConversionTransactionDto } from './dto/create-conversion-transaction.dto';
-import { UpdateConversionTransactionDto } from './dto/update-conversion-transaction.dto';
 
 @Injectable()
 export class ConversionTransactionsService {
-  create(createConversionTransactionDto: CreateConversionTransactionDto) {
-    return 'This action adds a new conversionTransaction';
+  constructor(
+    @InjectRepository(ConversionTransactions)
+    private readonly conversionTransactionsRepository: Repository<ConversionTransactions>,
+  ) {}
+
+  create(
+    createConversionTransactionDto: CreateConversionTransactionDto,
+  ): Promise<ConversionTransactions> {
+    const newTransaction = this.conversionTransactionsRepository.create(
+      createConversionTransactionDto,
+    );
+
+    return this.conversionTransactionsRepository.save(newTransaction);
   }
 
-  findAll() {
-    return `This action returns all conversionTransactions`;
+  findAll(): Promise<ConversionTransactions[]> {
+    return this.conversionTransactionsRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} conversionTransaction`;
-  }
-
-  update(id: number, updateConversionTransactionDto: UpdateConversionTransactionDto) {
-    return `This action updates a #${id} conversionTransaction`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} conversionTransaction`;
+  findOne(id: number): Promise<ConversionTransactions> {
+    return this.conversionTransactionsRepository.findOne(id);
   }
 }
