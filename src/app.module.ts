@@ -4,13 +4,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
-import { Users } from './users/users.entity';
 import { ConversionTransactionsModule } from './conversion-transactions/conversion-transactions.module';
-import { ConversionTransactions } from './conversion-transactions/conversion-transaction.entity';
 import { AuthModule } from './auth/auth.module';
+import { HttpModule } from 'nestjs-http-promise';
 
 @Module({
   imports: [
+    HttpModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: process.env.POSTGRES_HOST,

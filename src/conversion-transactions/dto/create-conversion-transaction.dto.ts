@@ -11,7 +11,4 @@ export class CreateConversionTransactionDto {
 
   @IsNumber()
   value: number;
-
-  @IsNotEmpty()
-  userId: number;
 }

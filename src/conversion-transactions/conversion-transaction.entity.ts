@@ -12,8 +12,11 @@ export class ConversionTransactions {
   @Column()
   to: string;
 
-  @Column()
-  value: number;
+  @Column({ type: 'money' })
+  initialValue: number;
+
+  @Column({ type: 'money' })
+  convertedValue: number;
 
   @Column()
   userId: number;

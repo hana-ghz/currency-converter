@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Param, UseGuards } from '@nestjs/common';
+import { request } from 'http';
+import {
+  Controller,
+  Get,
+  Post,
+  Request,
+  Param,
+  UseGuards,
+  Bind,
+} from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ConversionTransactionsService } from './conversion-transactions.service';
 import { CreateConversionTransactionDto } from './dto/create-conversion-transaction.dto';
@@ -11,12 +20,10 @@ export class ConversionTransactionsController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(
-    @Body() createConversionTransactionDto: CreateConversionTransactionDto,
-  ) {
-    return this.conversionTransactionsService.create(
-      createConversionTransactionDto,
-    );
+  @Bind(Request())
+  create(request) {
+    const body: CreateConversionTransactionDto = request.body;
+    return this.conversionTransactionsService.create(body, request.user.userId);
   }
 
   @UseGuards(JwtAuthGuard)
