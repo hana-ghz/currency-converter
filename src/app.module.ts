@@ -7,6 +7,7 @@ import { UsersModule } from './users/users.module';
 import { ConversionTransactionsModule } from './conversion-transactions/conversion-transactions.module';
 import { AuthModule } from './auth/auth.module';
 import { HttpModule } from 'nestjs-http-promise';
+import 'dotenv/config';
 
 @Module({
   imports: [
@@ -15,9 +16,9 @@ import { HttpModule } from 'nestjs-http-promise';
       type: 'postgres',
       host: process.env.POSTGRES_HOST,
       port: Number(process.env.POSTGRES_PORT),
-      username: 'hana',
-      password: process.env.POSTGRES_PASSWORD,
-      database: 'curr_converter_db',
+      username: process.env.POSTGRES_USERNAME,
+      password: process.env.PASSWORD,
+      database: process.env.POSTGRES_DB,
       autoLoadEntities: true,
       synchronize: true,
       logging: true,
